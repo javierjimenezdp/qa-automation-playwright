@@ -1,0 +1,47 @@
+{
+  "name": "automationqaudemy",
+  "version": "1.0.0",
+  "description": "Test automation project with Playwright and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "headed": "playwright test --headed",
+    "debug": "playwright test --debug",
+    "format": "prettier . --write",
+    "test:strict": "playwright test --forbid-only",
+    "pretest": "prettier . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javierjimenezdp/qa-automation-playwright.git"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "qa",
+    "testing",
+    "typescript",
+    "e2e"
+  ],
+  "author": "Javier Jimenez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javierjimenezdp/qa-automation-playwright/issues"
+  },
+  "homepage": "https://github.com/javierjimenezdp/qa-automation-playwright#readme",
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/date-fns": "^2.6.3",
+    "@types/node": "^24.5.1",
+    "dotenv": "^17.2.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
