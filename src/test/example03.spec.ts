@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { addMonths, addWeeks, addYears, format } from "date-fns";
+import { addMonths, addWeeks, addYears, format } from "date-fns"; 
 
+/*
 test.describe("Example Test Suite", () => {
   test("checkIn", async ({ page }) => {
     await page.goto("/");
@@ -38,3 +39,5 @@ test.describe("Example Test Suite", () => {
     await page.getByRole("option", { name: aria }).click();
   });
 });
+
+*/

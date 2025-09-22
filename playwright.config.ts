@@ -4,7 +4,7 @@ import "dotenv/config";
 const isCI = !!process.env.CI;
 
 export default defineConfig({
-  testDir: "./test",
+  testDir: "./src/test",
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
@@ -36,5 +36,6 @@ export default defineConfig({
     // Mobile emulation
     { name: "Mobile Chrome", use: { ...devices["Pixel 7"] } },
     { name: "Mobile Safari", use: { ...devices["iPhone 14"] } },
+    
   ],
 });
