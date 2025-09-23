@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { Homepage } from "../pages/homepage";
 import { Booknow } from "../pages/booknow";
 
-test.describe("Book Now Page", () => {
+test.describe.only("Book Now Page", () => {
     let booknowPage: Booknow;
     let homepage: Homepage;
 
@@ -14,9 +14,14 @@ test.describe("Book Now Page", () => {
     });
 
     test("Save first room values", async () => {
-        const firstValues = await booknowPage.bookroomfirstslide_values();
+        const firstValues = await booknowPage.viewandgetservicesfirstslide();
         await booknowPage.clickfirstroom();
-        const secondValues = await booknowPage.bookroomsecondslide_values();
-
+        const secondValues = await booknowPage.viewandgetservicessecondslide();
+        expect(secondValues.src).toBe(firstValues.src);
+        expect(secondValues.description).toBe(firstValues.description);
+        expect(secondValues.tv).toBe(firstValues.tv);
+        expect(secondValues.wifi).toBe(firstValues.wifi);
+        expect(secondValues.safe).toBe(firstValues.safe);
+        expect(secondValues.cost).toBe(firstValues.cost);
     });
 })
