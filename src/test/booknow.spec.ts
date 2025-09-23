@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { Homepage } from "../pages/homepage";
 import { Booknow } from "../pages/booknow";
 
-test.describe.only("Book Now Page", () => {
+test.describe("Book Now Page", () => {
     let booknowPage: Booknow;
     let homepage: Homepage;
 
