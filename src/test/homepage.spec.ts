@@ -1,5 +1,3 @@
-/*
-
 import { test, expect } from "@playwright/test";
 import { Homepage } from "../pages/homepage";
 
@@ -32,5 +30,3 @@ test.describe("Homepage", () => {
     }); 
 
 })
-
-*/
