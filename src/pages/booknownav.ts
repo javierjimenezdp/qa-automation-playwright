@@ -1,8 +1,7 @@
 import { expect, Expect, Locator, Page } from "@playwright/test";
 
-export class Booknow {
+export class Booknownav {
     readonly page: Page;
-    readonly bottonnow: Locator;
 
     readonly ourrooms: Locator;
     readonly availability: Locator;
@@ -37,7 +36,6 @@ export class Booknow {
     
     constructor(page: Page) {
         this.page = page;
-        this.bottonnow = page.locator('#root-container .hero.py-5 .py-5 .row.py-5 .btn-lg').nth(0)
 
         this.ourrooms = page.locator('#rooms')
         this.availability = page.locator('#rooms div')
@@ -75,8 +73,6 @@ export class Booknow {
     }
 
     async gotorroms() {
-        await this.bottonnow.click();
-        await this.ourrooms.scrollIntoViewIfNeeded();
         await expect( this.ourrooms).toBeVisible();
         await expect(this.ourrooms).toHaveText(/Our Rooms/);
     }
@@ -211,6 +207,7 @@ export class Booknow {
         await this.phoneinput.fill(phone);
 
         await this.reservenowinput.click();
+        await this.errormessage.scrollIntoViewIfNeeded();
         await expect(this.errormessage).toBeVisible();
     }
     async reservearoomsuccess(firstname: string, lastname: string, email: string, phone: string, page:Page) {

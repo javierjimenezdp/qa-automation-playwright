@@ -13,7 +13,7 @@ test.describe("Book Now Page", () => {
         await booknowPage.gotorroms();
     });
 
-    test("Save first room values", async () => {
+    test("Save first room values", async ( {page} ) => {
         const firstValues = await booknowPage.viewandgetservicesfirstslide();
         await booknowPage.clickfirstroom();
         const secondValues = await booknowPage.viewandgetservicessecondslide();
@@ -24,4 +24,17 @@ test.describe("Book Now Page", () => {
         expect(secondValues.safe).toBe(firstValues.safe);
         expect(secondValues.cost).toBe(firstValues.cost);
     });
+
+    test("Cancel reservation", async ( {page} ) => {
+        await booknowPage.clickfirstroom();
+        await booknowPage.reservearoomcancel(" ", " ", " ", " ", page);
+    });
+    test("Error reservation", async ( {page} ) => {
+        await booknowPage.clickfirstroom();
+        await booknowPage.reserveroomerror("Javier", "Testing", "javier@testing.com", "3108948596", page);
+    });
+    test("Success reservation", async ( {page} ) => {
+        await booknowPage.clickfirstroom();
+        await booknowPage.reservearoomsuccess("Javier", "Testing", "javier@testing.com", "31089485962", page);
+    }); 
 })
