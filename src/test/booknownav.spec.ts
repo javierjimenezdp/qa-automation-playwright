@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { Homepage } from "../pages/homepage";
-import { Booknownav } from "../pages/booknowNav";
+import { Booknownav } from "../pages/booknownavbar";
 import { NavBar } from "../pages/components/navbar";
 
 test.describe("Book Now Page NavBar", () => {
