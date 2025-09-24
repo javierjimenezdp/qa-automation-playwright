@@ -24,17 +24,14 @@ export class NavBar{
     }
 
     async hamburguermenu(){
-        // Asegura que el contenedor colapsable ya está en el DOM
         await this.collapse.waitFor({ state: 'attached' });
-
-        // Si el botón NO existe aún, reintenta un poco (SSR/hidratación)
         await this.page.waitForTimeout(50);
 
         const count = await this.navbartoggler.count();
         if (count === 0) {
             console.log('[DEBUG] No encontré el toggler con atributos. HTML del nav:');
             console.log(await this.page.locator('nav.navbar').first().innerHTML());
-            return; // evita intentar click si no hay botón
+            return; 
         }
 
         if (await this.navbartoggler.isVisible()) {
@@ -42,11 +39,11 @@ export class NavBar{
             await this.navbartoggler.scrollIntoViewIfNeeded();
             await this.navbartoggler.click();
             } catch {
-            // plan B por si alguna animación bloquea
+            
             await this.navbartoggler.evaluate((btn: HTMLElement) => btn.click());
             }
             await expect(this.collapse).toBeVisible();
-            await this.page.waitForTimeout(150); // pequeño colchón por animación
+            await this.page.waitForTimeout(150); 
         } else {
             console.log('[DEBUG] Toggler no visible (prob. viewport desktop o algo lo tapa).');
         }
