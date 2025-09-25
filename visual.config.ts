@@ -1,9 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 import "dotenv/config";
+
 const isCI = !!process.env.CI;
 
 export default defineConfig({
-  testDir: "./src/test/e2e",
+  testDir: "./src/test/visual",
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
@@ -22,9 +23,8 @@ export default defineConfig({
     actionTimeout: 0,
     navigationTimeout: 30_000,
     trace: "on-first-retry",
-    video: "retain-on-failure",
-    screenshot: "only-on-failure",
-    serviceWorkers: 'block',
+    video: "off",
+    screenshot: "off",
   },
 
   projects: [
@@ -38,5 +38,4 @@ export default defineConfig({
     { name: "Mobile Safari", use: { ...devices["iPhone 14"] } },
     
   ],
-  
 });

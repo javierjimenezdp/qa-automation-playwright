@@ -1,4 +1,4 @@
-import { expect, Expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class Booknownav {
     readonly page: Page;
@@ -31,7 +31,8 @@ export class Booknownav {
     readonly reservenowinput: Locator;
     readonly cancelinput: Locator;
     readonly successmessage: Locator;
-    readonly errormessage: Locator;
+    readonly errormessagegeneral: Locator;
+    readonly errrormessagespecific: Locator;
 
     
     constructor(page: Page) {
@@ -68,8 +69,8 @@ export class Booknownav {
         this.reservenowinput = page.locator('#root-container .my-5 .row .col-lg-4 .booking-card .card-body form .w-100.mb-3').nth(0)
         this.cancelinput = page.locator('#root-container .my-5 .row .col-lg-4 .booking-card .card-body form .w-100.mb-3').nth(1)
         this.successmessage = page.locator('body div').nth(1)
-        this.errormessage = page.locator('#root-container .my-5 .row .col-lg-4 form .alert-danger')        
-
+        this.errormessagegeneral = page.locator('#root-container .my-5 .row .col-lg-4 form .alert-danger')        
+        this.errrormessagespecific = page.locator('.row .col-lg-4 .card-body form .alert-danger') 
     }
 
     async gotorroms() {
@@ -189,7 +190,7 @@ export class Booknownav {
         await expect(this.selectdate).toBeVisible();
     }
 
-    async reserveroomerror(firstname: string, lastname: string, email: string, phone: string, page:Page) {
+    async reserveroomerrorspecific(firstname: string, lastname: string, email: string, phone: string, page:Page) {
         await this.selectdate.scrollIntoViewIfNeeded();
         await expect(this.selectdate).toBeVisible();
         const calendar = page.locator('#root-container .my-5 .col-lg-4 form .mb-4 .rbc-calendar .rbc-month-view');
@@ -207,9 +208,36 @@ export class Booknownav {
         await this.phoneinput.fill(phone);
 
         await this.reservenowinput.click();
-        await this.errormessage.scrollIntoViewIfNeeded();
-        await expect(this.errormessage).toBeVisible();
+        await this.errrormessagespecific.scrollIntoViewIfNeeded();
+        await expect(this.errrormessagespecific).toBeVisible();
+        const errortext = await this.errrormessagespecific.textContent(); expect(errortext).toBeTruthy();
+        console.log("Error message text is: " + errortext);
     }
+
+        async reserveroomerrorgeneral(firstname: string, lastname: string, email: string, phone: string, page:Page) {
+        await this.selectdate.scrollIntoViewIfNeeded();
+        await expect(this.selectdate).toBeVisible();
+        const calendar = page.locator('#root-container .my-5 .col-lg-4 form .mb-4 .rbc-calendar .rbc-month-view');
+        const selectevent = calendar.locator('.rbc-event-content[title="Selected"]')
+        await expect(selectevent).toBeVisible();
+        await expect(selectevent).toHaveCount(1);
+
+        await this.reservenow.scrollIntoViewIfNeeded();
+        await this.reservenow.click();
+        
+        await expect(this.formreserve).toBeVisible();
+        await this.firstnameinput.fill(firstname);
+        await this.lastnameinput.fill(lastname);
+        await this.emailinput.fill(email);
+        await this.phoneinput.fill(phone);
+
+        await this.reservenowinput.click();
+        await this.errormessagegeneral.scrollIntoViewIfNeeded();
+        await expect(this.errormessagegeneral).toBeVisible();
+        const errortext = await this.errormessagegeneral.textContent(); expect(errortext).toBeTruthy();
+        console.log("Error message text is: " + errortext);
+    }
+    
     async reservearoomsuccess(firstname: string, lastname: string, email: string, phone: string, page:Page) {
         await this.selectdate.scrollIntoViewIfNeeded();
         await expect(this.selectdate).toBeVisible();

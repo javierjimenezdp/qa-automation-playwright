@@ -10,7 +10,19 @@
     "debug": "playwright test --debug",
     "format": "prettier . --write",
     "test:strict": "playwright test --forbid-only",
-    "pretest": "prettier . --check"
+    "pretest": "prettier . --check",
+
+    "test:chrome": "playwright test --config-playwright.config.ts --project=chromium",
+    "test:firefox": "playwright test --config-playwright.config.ts --project=firefox",
+    "test:webkit": "playwright test --config-playwright.config.ts --project=webkit",
+    "test:chromemobile": "playwright test --config-playwright.config.ts --project=Mobile-Chrome",
+    "test:safarimobile": "playwright test --config-playwright.config.ts --project-Mobile-Safari",
+
+    "test:visual:chrome": "playwright test --config-visual.config.ts --project=chromium",
+    "test:visual:firefox": "playwright test --config-visual.config.ts --project=firefox",
+    "test:visual:webkit": "playwright test --config-visual.config.ts --project=webkit",
+    "test:visual:chromemobile": "playwright test --config-visual.config.ts --project=Mobile-Chrome",
+    "test:visual:safarimobile": "playwright test --config-visual.config.ts --project-Mobile-Safari"
   },
   "repository": {
     "type": "git",

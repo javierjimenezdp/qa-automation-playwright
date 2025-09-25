@@ -1,4 +1,4 @@
-import { expect, Expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class Booknow {
     readonly page: Page;
@@ -32,7 +32,8 @@ export class Booknow {
     readonly reservenowinput: Locator;
     readonly cancelinput: Locator;
     readonly successmessage: Locator;
-    readonly errormessage: Locator;
+    readonly errormessagegeneral: Locator;
+    readonly errrormessagespecific: Locator;
 
     
     constructor(page: Page) {
@@ -70,7 +71,8 @@ export class Booknow {
         this.reservenowinput = page.locator('#root-container .my-5 .row .col-lg-4 .booking-card .card-body form .w-100.mb-3').nth(0)
         this.cancelinput = page.locator('#root-container .my-5 .row .col-lg-4 .booking-card .card-body form .w-100.mb-3').nth(1)
         this.successmessage = page.locator('body div').nth(1)
-        this.errormessage = page.locator('#root-container .my-5 .row .col-lg-4 form .alert-danger')        
+        this.errormessagegeneral = page.locator('#root-container .my-5 .row .col-lg-4 form .alert-danger')        
+        this.errrormessagespecific = page.locator('.row .col-lg-4 .card-body form .alert-danger') 
 
     }
 
@@ -82,9 +84,8 @@ export class Booknow {
     }
 
     async viewandgetservicesfirstslide() {  
-        await this.firstoption.scrollIntoViewIfNeeded();
         await expect(this.firstoption).toBeVisible();
-
+        await expect(this.photo).toHaveAttribute('src', { timeout: 10000 });
         await expect(this.photo).toBeVisible();
         const srcphoto = await this.photo.getAttribute('src'); expect(srcphoto).toBeTruthy();
         console.log("Photo source is: " + srcphoto);
@@ -131,6 +132,7 @@ export class Booknow {
     async viewandgetservicessecondslide(){
         await this.photo2slide.scrollIntoViewIfNeeded();
         await expect(this.photo2slide).toBeVisible();
+        await expect(this.photo2slide).toHaveAttribute('src', { timeout: 10000 });
         const srcphoto2 = await this.photo2slide.getAttribute('src'); expect(srcphoto2).toBeTruthy();
         console.log("Photo source 2nd slide is: " + srcphoto2);
 
@@ -193,7 +195,7 @@ export class Booknow {
         await expect(this.selectdate).toBeVisible();
     }
 
-    async reserveroomerror(firstname: string, lastname: string, email: string, phone: string, page:Page) {
+    async reserveroomerrorspecific(firstname: string, lastname: string, email: string, phone: string, page:Page) {
         await this.selectdate.scrollIntoViewIfNeeded();
         await expect(this.selectdate).toBeVisible();
         const calendar = page.locator('#root-container .my-5 .col-lg-4 form .mb-4 .rbc-calendar .rbc-month-view');
@@ -211,8 +213,38 @@ export class Booknow {
         await this.phoneinput.fill(phone);
 
         await this.reservenowinput.click();
-        await expect(this.errormessage).toBeVisible();
+        await this.errrormessagespecific.scrollIntoViewIfNeeded();
+        await expect(this.errrormessagespecific).toBeVisible();
+        const errortext = await this.errrormessagespecific.textContent(); expect(errortext).toBeTruthy();
+        console.log("Error message text is: " + errortext);
     }
+
+        async reserveroomerrorgeneral(firstname: string, lastname: string, email: string, phone: string, page:Page) {
+        await this.selectdate.scrollIntoViewIfNeeded();
+        await expect(this.selectdate).toBeVisible();
+        const calendar = page.locator('#root-container .my-5 .col-lg-4 form .mb-4 .rbc-calendar .rbc-month-view');
+        const selectevent = calendar.locator('.rbc-event-content[title="Selected"]')
+        await expect(selectevent).toBeVisible();
+        await expect(selectevent).toHaveCount(1);
+
+        await this.reservenow.scrollIntoViewIfNeeded();
+        await this.reservenow.click();
+        
+        await expect(this.formreserve).toBeVisible();
+        await this.firstnameinput.fill(firstname);
+        await this.lastnameinput.fill(lastname);
+        await this.emailinput.fill(email);
+        await this.phoneinput.fill(phone);
+
+        await this.reservenowinput.click();
+        await this.errormessagegeneral.scrollIntoViewIfNeeded();
+        await expect(this.errormessagegeneral).toBeVisible();
+        const errortext = await this.errormessagegeneral.textContent(); expect(errortext).toBeTruthy();
+        console.log("Error message text is: " + errortext);
+    }
+
+
+
     async reservearoomsuccess(firstname: string, lastname: string, email: string, phone: string, page:Page) {
         await this.selectdate.scrollIntoViewIfNeeded();
         await expect(this.selectdate).toBeVisible();
@@ -232,5 +264,7 @@ export class Booknow {
 
         await this.reservenowinput.click();
         await expect(this.successmessage).toBeVisible();
+        const successmsg = await this.successmessage.textContent(); expect(successmsg).toBeTruthy();
+        console.log("Success message text is: " + successmsg);
     }  
 }
