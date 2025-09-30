@@ -42,7 +42,7 @@ export class Booknowdatapicker {
         }
 
         const daySelector = `.react-datepicker .react-datepicker__day:not(.react-datepicker__day--outside-month).react-datepicker__day--${String(day).padStart(3, '0')}`;
-        await this.page.waitForSelector('.react-datepicker__month'); // asegura render del mes
+        await this.page.waitForSelector('.react-datepicker__month'); 
         await this.page.locator(daySelector).click();
     }
 
@@ -66,7 +66,7 @@ export class Booknowdatapicker {
         }
 
         const daySelector = `.react-datepicker .react-datepicker__day:not(.react-datepicker__day--outside-month).react-datepicker__day--${String(day).padStart(3, '0')}`;
-        await this.page.waitForSelector('.react-datepicker__month'); // asegura render del mes
+        await this.page.waitForSelector('.react-datepicker__month');
         await this.page.locator(daySelector).click();
     };
 

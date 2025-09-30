@@ -5,6 +5,7 @@ const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: "./src/test/visual",
+
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,

@@ -15,7 +15,7 @@ export default defineConfig({
   expect: {
     timeout: 5_000,
   },
-
+  
   use: {
     baseURL: process.env.BASE_URL || "https://automationintesting.online",
     headless: true,
