@@ -21,6 +21,7 @@ test.describe("Locations Sectons", () => {
 
     test ("Our Location", async ({page}) => {
         await navbar.clickontabtext("Location");
-        await location.locationpagesection()
+        await location.locationpagesection();
+        await location.contactinformationtext();
     })
 })

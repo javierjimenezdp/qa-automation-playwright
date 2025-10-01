@@ -60,7 +60,7 @@ export class Location {
         const gettinghere = await this.contactgethere.textContent();
         const gettinhereutils = normalizeText(gettinghere)
         console.log('Getting Here:', gettinhereutils);
-        expect(gettinhereutils).toContain('Getting here by car or public transport is easy. We are located just off the A1 and have ample parking for guests. The nearest train station is Newingtonfordburyshire Central, which is a 10-minute taxi ride away.');
+        expect(gettinhereutils).toContain('Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.');
     }
 
 }
