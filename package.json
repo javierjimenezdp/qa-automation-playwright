@@ -22,8 +22,15 @@
     "test:visual:firefox": "playwright test --config-visual.config.ts --project=firefox",
     "test:visual:webkit": "playwright test --config-visual.config.ts --project=webkit",
     "test:visual:chromemobile": "playwright test --config-visual.config.ts --project=Mobile-Chrome",
-    "test:visual:safarimobile": "playwright test --config-visual.config.ts --project-Mobile-Safari"
+    "test:visual:safarimobile": "playwright test --config-visual.config.ts --project-Mobile-Safari",
+
+    "test:api:chrome": "playwright test --config-api.config.ts --project=chromium",
+    "test:api:firefox": "playwright test --config-api.config.ts --project=firefox",
+    "test:api:webkit": "playwright test --config-api.config.ts --project=webkit",
+    "test:api:chromemobile": "playwright test --config-api.config.ts --project=Mobile-Chrome",
+    "test:api:safarimobile": "playwright test --config-api.config.ts --project-Mobile-Safari"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/javierjimenezdp/qa-automation-playwright.git"

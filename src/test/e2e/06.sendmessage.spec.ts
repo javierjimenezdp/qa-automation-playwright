@@ -3,7 +3,7 @@ import { Homepage } from "../../pages/01.homepage";
 import {Sendmessage} from "../../pages/06.sendmessage";
 import { NavBar } from "../../pages/components/navbar";
 
-test.describe.only("Locations Sectons", () => {
+test.describe("Locations Sectons", () => {
     let homepage: Homepage;
     let sendmessage: Sendmessage;
     let navbar: NavBar;
