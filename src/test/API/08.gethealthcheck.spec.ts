@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe.only("API Booker GET HealthCheck", () => {
+test.describe("API Booker GET HealthCheck", () => {
     const baseURL = process.env.API_BOOKER_URL
 
     test("GET - HealthCheck", async ({ request }) => {
