@@ -10,8 +10,5 @@
     "skipLibCheck": true,
     "types": ["@playwright/test", "node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "playwright.config.ts"
-  ]
+  "include": ["src/**/*.ts", "playwright.config.ts"]
 }

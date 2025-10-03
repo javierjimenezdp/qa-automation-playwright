@@ -15,7 +15,7 @@ export default defineConfig({
   expect: {
     timeout: 5_000,
   },
-  
+
   use: {
     baseURL: process.env.BASE_URL || "https://automationintesting.online",
     headless: true,
@@ -24,7 +24,7 @@ export default defineConfig({
     trace: "on-first-retry",
     video: "retain-on-failure",
     screenshot: "only-on-failure",
-    serviceWorkers: 'block',
+    serviceWorkers: "block",
   },
 
   projects: [
@@ -36,7 +36,5 @@ export default defineConfig({
     // Mobile emulation
     { name: "Mobile Chrome", use: { ...devices["Pixel 7"] } },
     { name: "Mobile Safari", use: { ...devices["iPhone 14"] } },
-    
   ],
-  
 });

@@ -37,6 +37,5 @@ export default defineConfig({
     // Mobile emulation
     { name: "Mobile Chrome", use: { ...devices["Pixel 7"] } },
     { name: "Mobile Safari", use: { ...devices["iPhone 14"] } },
-    
   ],
 });

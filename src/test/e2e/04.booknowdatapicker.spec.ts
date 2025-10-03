@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { Homepage } from "../../pages/01.homepage";
 import { Booknow } from "../../pages/02.booknow";
 import { Booknowdatapicker } from "../../pages/04.booknowdatapicker";
-import { addMonths, addWeeks, addYears, format } from "date-fns"; 
+import { addMonths, addWeeks, addYears, format } from "date-fns";
 
 test.describe("Booknow Datepicker Functionality", () => {
   let homepage: Homepage;
@@ -10,14 +10,15 @@ test.describe("Booknow Datepicker Functionality", () => {
   let booknowdatapicker: Booknowdatapicker;
 
   test.beforeEach(async ({ page }) => {
-      await page.route('**/*', route => {
-    const h = { ...route.request().headers(),
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    };
-    route.continue({ headers: h });
-  });
+    await page.route("**/*", (route) => {
+      const h = {
+        ...route.request().headers(),
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      };
+      route.continue({ headers: h });
+    });
     homepage = new Homepage(page);
     booknowpage = new Booknow(page);
     booknowdatapicker = new Booknowdatapicker(page);
@@ -25,7 +26,9 @@ test.describe("Booknow Datepicker Functionality", () => {
     await booknowdatapicker.bookingpage();
   });
 
-  test("Select Check-in and Check-out Dates Using Datepicker", async ({ page }) => {
+  test("Select Check-in and Check-out Dates Using Datepicker", async ({
+    page,
+  }) => {
     await booknowdatapicker.booknowdatecheckin(page);
     await booknowdatapicker.booknowdatecheckout(page);
     await booknowdatapicker.checkavaialibilityclick();
@@ -39,8 +42,12 @@ test.describe("Booknow Datepicker Functionality", () => {
     expect(secondValues.wifi).toBe(firstValues.wifi);
     expect(secondValues.safe).toBe(firstValues.safe);
     expect(secondValues.cost).toBe(firstValues.cost);
-    await booknowpage.reservearoomsuccess("Javier", "Testing", "javier@testing.com", "31089485962", page);
-
-  })
-
+    await booknowpage.reservearoomsuccess(
+      "Javier",
+      "Testing",
+      "javier@testing.com",
+      "31089485962",
+      page,
+    );
+  });
 });

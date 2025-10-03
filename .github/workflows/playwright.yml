@@ -2,9 +2,9 @@ name: Playwright Tests
 
 on:
   pull_request:
-    branches: [ main ]           # Corre cuando el PR apunta a main
+    branches: [main] # Corre cuando el PR apunta a main
   push:
-    branches: [ draft/playwright-wip ]  # Opcional: corre en cada push a tu rama de trabajo
+    branches: [draft/playwright-wip] # Opcional: corre en cada push a tu rama de trabajo
   workflow_dispatch:
 
 jobs:
