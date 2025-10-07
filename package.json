@@ -27,7 +27,15 @@
     "test:api:webkit": "playwright test --config=api.config.ts --project=webkit",
     "test:api:chromemobile": "playwright test --config=api.config.ts --project=Mobile-Chrome",
     "test:api:safarimobile": "playwright test --config=api.config.ts --project-Mobile-Safari",
-    "k6:smoke": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/smoke_test.js"  
+    "k6:smoke": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/smoke_test.js",
+    "k6:load": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/load_test.js",
+    "k6:stress": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/stress_test.js",
+    "k6:spike": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/spike_test.js",
+    "k6:soak": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/soak_test.js"  
+    
+    
+    
+  
 },
 
   "repository": {

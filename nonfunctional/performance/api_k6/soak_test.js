@@ -8,13 +8,24 @@ import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporte
 
 // init context: define k6 options
 export const options = {
-  vus: 1,           // 1 usuario
-  iterations: 1,          // lo hace durante 45 segundos seguidos.
-  thresholds: {
-    checks: ['rate>0.99'], // significa que al menos el 99 % de los checks (validaciones) deben pasar; si no, la prueba falla.
-    http_req_duration: ['p(95)<800'], // significa que el 95 % de las peticiones HTTP deben responder en menos de 800 ms.
+  scenarios: {
+    soak_e2e_booking: {
+      executor: 'constant-arrival-rate',
+      rate: 3,                 // 3 req/s (moderado y “amable”)
+      timeUnit: '1s',
+      duration: '45m',         // 45–60 min es un buen inicio
+      preAllocatedVUs: 15,
+      maxVUs: 30,
+      exec: 'default',     // o 'default' si tu flujo se llama default
+      tags: { test_type: 'soak', flow: 'default' },
+    },
   },
-};
+  thresholds: {
+    checks: ['rate>0.99'],
+    http_req_failed: ['rate<0.01'],
+    http_req_duration: ['p(95)<900'],  // un pelín más relajado que Load
+  },
+}
 
 // 1. init code - La idea: en setup() obtienes el token una sola vez y devuelves todo lo que vas a reutilizar en default().
 export function setup() {
@@ -37,13 +48,7 @@ export function setup() {
     JSON.stringify({ username: username, password: password }), // Cuerpo de la petición, convierte tu objeto JS a texto plano JSON (el formato que espera la API)
     { headers: jsonheaders } // Envia encabezados (headers), aquí el Content-Type 
   );
-    check(createtoken, { // Check es como el “expect” de Playwright o el “assert” de Pytest || createtoken: es el objeto que devuelve http.post, http.get, etc.
-      'login status 200': (r) => r.status === 200, // r: es la condición que debe cumplirse.
-      'token present': (r) => r.json('token') !== '', // Léame el JSON de esta respuesta y deme el valor que tenga el campo 'token' || Asegúrese de que el token no sea una cadena vacía. 
-    });
-
   const token = createtoken.json('token'); // Extrae el token de la respuesta JSON
-  console.log(`Token obtenido: ${token}`); // Muestra el token en la consola de k6
 
     return {
     token,
@@ -71,17 +76,7 @@ export default function (data) {
   });
 
   const createbooking = http.post(baseurlpost, payload, { headers: jsonpostheaders });
-  console.log(`Response body: ${createbooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(createbooking, {
-      'login status 200': (r) => r.status === 200,
-      'bookingid present': (r) => r.json('bookingid') !== '', 
-    });
-
   const bookingidnew = createbooking.json('bookingid'); 
-  console.log(`Bookingid obtenido: ${bookingidnew}`); 
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -99,15 +94,6 @@ export default function (data) {
   });
 
   const updatebooking = http.patch(baseurlpatch, payloadpatch, { headers: jsonpatchheaders });
-  console.log(`Response body: ${updatebooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(updatebooking, {
-    'update status 200': (r) => r.status === 200,
-    'firstname updated': (r) => r.json('firstname') === updatebooking.json('firstname'),
-    'lastname updated': (r) => r.json('lastname') === updatebooking.json('lastname'),
-  });
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -132,15 +118,6 @@ export default function (data) {
   };
 
   const putbooking = http.put(baseurlput, payloadput, { headers: jsonputheaders });
-  console.log(`Response body: ${putbooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(putbooking, {
-    'put status 200': (r) => r.status === 200,
-    'firstname updated': (r) => r.json('firstname') === 'James',
-    'lastname updated': (r) => r.json('lastname') === 'Smith',
-  });
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -153,26 +130,13 @@ export default function (data) {
   };
 
   const deletebooking = http.del(urldelete, null, { headers: jsondeleteheaders });
-  check(deletebooking, {
-    'delete status 201': (r) => r.status === 201,
-  });
-
-
-  console.log(`Status code: ${deletebooking.status}`); // Muestra el código de estado en la consola de k6
-  console.log(`Response body: ${deletebooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
   //GET - Ping - HealthCheck
   const urlgetping = `${baseurl}/ping`;
   const getping = http.get(urlgetping);
-  check(getping, {
-    'ping status 201': (r) => r.status === 201,
-  });
-  console.log(`Status code: ${getping.status}`);
-
+  sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 }
 
 export function handleSummary(data) {

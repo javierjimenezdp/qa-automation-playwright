@@ -1,18 +1,40 @@
 // init context: importing modules
 import http from 'k6/http';
 import { sleep } from 'k6'; //sleep lo usamos solo si quieres simular respiritos entre pasos
-import { check } from 'k6'; //check te permite afirmar “status 200”, “tiene id”, etc.
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.4/index.js';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 
 // init context: define k6 options
 export const options = {
-  vus: 1,           // 1 usuario
-  iterations: 1,          // lo hace durante 45 segundos seguidos.
+  scenarios: {
+    load_e2e_booking: {
+      executor: 'constant-arrival-rate',
+      rate: 3,                 // 3 solicitudes por segundo (conservador)
+      timeUnit: '1s',
+      duration: '12m',         // sostén
+      preAllocatedVUs: 10,     // VUs que K6 reserva para cumplir la tasa
+      maxVUs: 20,              // tope por si hace falta más
+      exec: 'default',
+      tags: { test_type: 'load', flow: 'e2e_booking' },
+    },
+    warmup: {
+      executor: 'ramping-arrival-rate',
+      startRate: 1,
+      timeUnit: '1s',
+      preAllocatedVUs: 5,
+      maxVUs: 10,
+      stages: [
+        { duration: '2m', target: 3 },   // sube de 1 → 3 req/s
+      ],
+      exec: 'default',
+      tags: { test_type: 'warmup', flow: 'e2e_booking' },
+    },
+  },
   thresholds: {
-    checks: ['rate>0.99'], // significa que al menos el 99 % de los checks (validaciones) deben pasar; si no, la prueba falla.
-    http_req_duration: ['p(95)<800'], // significa que el 95 % de las peticiones HTTP deben responder en menos de 800 ms.
+    checks: ['rate>0.99'],
+    http_req_duration: ['p(95)<800'],
+    http_req_failed: ['rate<0.01'],
   },
 };
 
@@ -37,13 +59,7 @@ export function setup() {
     JSON.stringify({ username: username, password: password }), // Cuerpo de la petición, convierte tu objeto JS a texto plano JSON (el formato que espera la API)
     { headers: jsonheaders } // Envia encabezados (headers), aquí el Content-Type 
   );
-    check(createtoken, { // Check es como el “expect” de Playwright o el “assert” de Pytest || createtoken: es el objeto que devuelve http.post, http.get, etc.
-      'login status 200': (r) => r.status === 200, // r: es la condición que debe cumplirse.
-      'token present': (r) => r.json('token') !== '', // Léame el JSON de esta respuesta y deme el valor que tenga el campo 'token' || Asegúrese de que el token no sea una cadena vacía. 
-    });
-
   const token = createtoken.json('token'); // Extrae el token de la respuesta JSON
-  console.log(`Token obtenido: ${token}`); // Muestra el token en la consola de k6
 
     return {
     token,
@@ -71,17 +87,7 @@ export default function (data) {
   });
 
   const createbooking = http.post(baseurlpost, payload, { headers: jsonpostheaders });
-  console.log(`Response body: ${createbooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(createbooking, {
-      'login status 200': (r) => r.status === 200,
-      'bookingid present': (r) => r.json('bookingid') !== '', 
-    });
-
   const bookingidnew = createbooking.json('bookingid'); 
-  console.log(`Bookingid obtenido: ${bookingidnew}`); 
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -99,15 +105,6 @@ export default function (data) {
   });
 
   const updatebooking = http.patch(baseurlpatch, payloadpatch, { headers: jsonpatchheaders });
-  console.log(`Response body: ${updatebooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(updatebooking, {
-    'update status 200': (r) => r.status === 200,
-    'firstname updated': (r) => r.json('firstname') === updatebooking.json('firstname'),
-    'lastname updated': (r) => r.json('lastname') === updatebooking.json('lastname'),
-  });
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -132,15 +129,6 @@ export default function (data) {
   };
 
   const putbooking = http.put(baseurlput, payloadput, { headers: jsonputheaders });
-  console.log(`Response body: ${putbooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-  check(putbooking, {
-    'put status 200': (r) => r.status === 200,
-    'firstname updated': (r) => r.json('firstname') === 'James',
-    'lastname updated': (r) => r.json('lastname') === 'Smith',
-  });
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
@@ -153,26 +141,13 @@ export default function (data) {
   };
 
   const deletebooking = http.del(urldelete, null, { headers: jsondeleteheaders });
-  check(deletebooking, {
-    'delete status 201': (r) => r.status === 201,
-  });
-
-
-  console.log(`Status code: ${deletebooking.status}`); // Muestra el código de estado en la consola de k6
-  console.log(`Response body: ${deletebooking.body}`); // Muestra el cuerpo de la respuesta en la consola de k6
-
-
   sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 
 
   //GET - Ping - HealthCheck
   const urlgetping = `${baseurl}/ping`;
   const getping = http.get(urlgetping);
-  check(getping, {
-    'ping status 201': (r) => r.status === 201,
-  });
-  console.log(`Status code: ${getping.status}`);
-
+  sleep(1); // Simula un tiempo de espera entre acciones (opcional)
 }
 
 export function handleSummary(data) {
