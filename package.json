@@ -27,8 +27,8 @@
     "test:api:webkit": "playwright test --config=api.config.ts --project=webkit",
     "test:api:chromemobile": "playwright test --config=api.config.ts --project=Mobile-Chrome",
     "test:api:safarimobile": "playwright test --config=api.config.ts --project-Mobile-Safari",
-    "k6:smoke": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_URL=https://restful-booker.herokuapp.com ./nonfunctional/performance/api_k6/smoke.js"
-  },
+    "k6:smoke": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/smoke_test.js"  
+},
 
   "repository": {
     "type": "git",
