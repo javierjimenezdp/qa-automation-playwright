@@ -31,13 +31,8 @@
     "k6:load": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/load_test.js",
     "k6:stress": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/stress_test.js",
     "k6:spike": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/spike_test.js",
-    "k6:soak": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/soak_test.js"  
-    
-    
-    
-  
-},
-
+    "k6:soak": "\"C:\\ProgramData\\chocolatey\\bin\\k6.exe\" run -e API_BOOKER_BAT_URL=https://restful-booker.herokuapp.com -e API_BOOKER_BAT_USERNAME=admin -e API_BOOKER_BAT_PASSWORD=password123 ./nonfunctional/performance/api_k6/soak_test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/javierjimenezdp/qa-automation-playwright.git"
@@ -59,7 +54,6 @@
   "dependencies": {
     "date-fns": "^4.1.0"
   },
-  
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@types/date-fns": "^2.6.3",
@@ -67,6 +61,7 @@
     "dotenv": "^17.2.2",
     "k6": "^0.0.0",
     "prettier": "^3.6.2",
+    "saucectl": "^0.197.2",
     "typescript": "^5.9.2"
   },
   "engines": {
