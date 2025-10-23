@@ -2,25 +2,20 @@ apiVersion: v1alpha
 kind: playwright
 
 sauce:
-  region: us-west-1         # cambia a eu-central-1 si no conecta
+  region: us-west-1            # cambia a eu-central-1 si prefieres
   concurrency: 1
   metadata:
     build: "QA_Automation v1.0"
-    tags:
-      - playwright
-      - smoke
-      - homepage
+    tags: [playwright, smoke, homepage]
 
 playwright:
-  version: 1.52.0           # versión compatible con saucectl
-  configFile: playwright.config.ts
-
-# 👇 suites que se ejecutarán
+  version: 1.52.0              # compatible con tu saucectl
+  configFile: playwright.sauce.config.ts
 suites:
   - name: "Homepage smoke"
     platformName: "Windows 11"
     screenResolution: "1920x1080"
     params:
-      browserName: chromium     # <--- el browser se define DENTRO de params
+      browserName: chromium     # ← requerido por tu versión de saucectl
     testMatch:
-      - "test/e2e/01.homepage.spec.ts"   # ajusta según tu estructura real
+      - "test/e2e/01.homepage.spec.ts"   # ajusta si es src/test/e2e/...
