@@ -1,0 +1,231 @@
+{
+  "options": {
+    "summaryTrendStats": [
+      "avg",
+      "min",
+      "med",
+      "max",
+      "p(90)",
+      "p(95)"
+    ],
+    "summaryTimeUnit": "",
+    "noColor": false
+  },
+  "state": {
+    "isStdOutTTY": true,
+    "isStdErrTTY": true,
+    "testRunDurationMs": 725635.7477
+  },
+  "metrics": {
+    "checks": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0,
+        "passes": 0,
+        "fails": 0
+      },
+      "thresholds": {
+        "rate>0.99": {
+          "ok": true
+        }
+      }
+    },
+    "http_req_duration": {
+      "thresholds": {
+        "p(95)<800": {
+          "ok": true
+        }
+      },
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "max": 6063.31,
+        "p(90)": 83.1126,
+        "p(95)": 97.572875,
+        "avg": 80.30343612731622,
+        "min": 61.1018,
+        "med": 67.99334999999999
+      }
+    },
+    "iteration_duration": {
+      "values": {
+        "avg": 5407.105398755899,
+        "min": 5316.6191,
+        "med": 5346.4579,
+        "max": 11411.7741,
+        "p(90)": 5446.624,
+        "p(95)": 5493.1749
+      },
+      "type": "trend",
+      "contains": "time"
+    },
+    "http_req_blocked": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(95)": 0,
+        "avg": 0.5461088366506521,
+        "min": 0,
+        "med": 0,
+        "max": 311.956,
+        "p(90)": 0
+      }
+    },
+    "http_req_failed": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.2182566918325326,
+        "passes": 2544,
+        "fails": 9112
+      },
+      "thresholds": {
+        "rate<0.01": {
+          "ok": false
+        }
+      }
+    },
+    "http_reqs": {
+      "contains": "default",
+      "values": {
+        "rate": 16.063155704422304,
+        "count": 11656
+      },
+      "type": "counter"
+    },
+    "http_req_sending": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "max": 4.026,
+        "p(90)": 0,
+        "p(95)": 0,
+        "avg": 0.0032049330816746736,
+        "min": 0,
+        "med": 0
+      }
+    },
+    "http_req_connecting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "min": 0,
+        "med": 0,
+        "max": 74.8836,
+        "p(90)": 0,
+        "p(95)": 0,
+        "avg": 0.17451260295126975
+      }
+    },
+    "http_req_tls_handshaking": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 0.3539949639670555,
+        "min": 0,
+        "med": 0,
+        "max": 148.7114,
+        "p(90)": 0,
+        "p(95)": 0
+      }
+    },
+    "http_req_waiting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 80.2110261839394,
+        "min": 61.1018,
+        "med": 67.91435,
+        "max": 6063.31,
+        "p(90)": 82.93295,
+        "p(95)": 97.455375
+      }
+    },
+    "data_received": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "count": 10216976,
+        "rate": 14080.034001059179
+      }
+    },
+    "iterations": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 2331,
+        "rate": 3.2123555205051813
+      }
+    },
+    "vus_max": {
+      "values": {
+        "max": 30,
+        "value": 30,
+        "min": 15
+      },
+      "type": "gauge",
+      "contains": "default"
+    },
+    "http_req_receiving": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 0.0892050102951271,
+        "min": 0,
+        "med": 0,
+        "max": 6.5894,
+        "p(90)": 0.504,
+        "p(95)": 1.0012
+      }
+    },
+    "vus": {
+      "values": {
+        "value": 2,
+        "min": 2,
+        "max": 28
+      },
+      "type": "gauge",
+      "contains": "default"
+    },
+    "data_sent": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "count": 3241542,
+        "rate": 4467.175177455772
+      }
+    },
+    "http_req_duration{expected_response:true}": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 77.93754563213334,
+        "min": 61.6475,
+        "med": 68.18015,
+        "max": 5069.9866,
+        "p(90)": 78.47153999999998,
+        "p(95)": 93.64054
+      }
+    },
+    "dropped_iterations": {
+      "contains": "default",
+      "values": {
+        "rate": 0.09508903085150472,
+        "count": 69
+      },
+      "type": "counter"
+    }
+  },
+  "setup_data": {
+    "baseurl": "https://restful-booker.herokuapp.com",
+    "token": "51c30795daf006d"
+  },
+  "root_group": {
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": [],
+    "checks": []
+  }
+}

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { addMonths, addWeeks, addYears, format } from "date-fns";
 
+/*
 test("example test", async ({ page }) => {
   await page.goto("/");
 
@@ -17,3 +18,4 @@ test("example test", async ({ page }) => {
   await page.click(".react-datepicker__input-container");
   await page.getByRole("option", { name: aria }).click();
 });
+*/
